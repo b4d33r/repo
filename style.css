@@ -98,25 +98,50 @@ body::before {
   }
 }
 
-/* STEP 1 - Account Connection */
-.main-title {
-  font-size: 32px;
+/* STEP 1 - Hero/Landing Section */
+.hero-title {
+  font-size: 36px;
   font-weight: 900;
   text-align: center;
-  margin-bottom: 12px;
-  background: linear-gradient(135deg, #00e676 0%, #00ffa3 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 30px rgba(0, 230, 118, 0.3);
+  margin-bottom: 16px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
 }
 
-.subtitle {
+.hero-subtitle {
   text-align: center;
   font-size: 16px;
   font-weight: 400;
-  color: #b0b0b0;
-  margin-bottom: 32px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 36px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.btn-hero {
+  width: 100%;
+  padding: 18px;
+  font-size: 20px;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #00e676 0%, #00c853 100%);
+  color: #000000;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 230, 118, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-hero:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 230, 118, 0.6);
+}
+
+.btn-hero:active {
+  transform: translateY(0);
 }
 
 .input-wrapper {
@@ -127,48 +152,26 @@ body::before {
 
 .username-input {
   width: 100%;
-  padding: 16px 20px;
-  font-size: 16px;
+  padding: 18px 20px;
+  font-size: 17px;
   font-family: 'Poppins', sans-serif;
-  background: #0f0f0f;
-  border: 2px solid #2a2a2a;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.25);
   border-radius: 12px;
   color: #ffffff;
   transition: all 0.3s ease;
   outline: none;
+  font-weight: 500;
 }
 
 .username-input:focus {
   border-color: #00e676;
-  box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.2);
 }
 
 .username-input::placeholder {
-  color: #666;
-}
-
-.btn-primary {
-  width: 100%;
-  padding: 16px;
-  font-size: 18px;
-  font-weight: 700;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #00e676 0%, #00c853 100%);
-  color: #0a0a0a;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 230, 118, 0.5);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* STEP 2 - Scanning Animation */
@@ -323,65 +326,61 @@ body::before {
   color: #00e676;
 }
 
-/* STEP 4 - Human Verification */
-.verify-title {
-  font-size: 28px;
-  font-weight: 800;
+/* STEP 4 - Processing/Verification Screen */
+.processing-container {
   text-align: center;
-  margin-bottom: 12px;
-  color: #00e676;
+  padding: 40px 20px;
 }
 
-.verify-subtitle {
-  text-align: center;
+.spinner {
+  margin: 0 auto 32px;
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(0, 230, 118, 0.2);
+  border-top: 5px solid #00e676;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.processing-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #00e676;
+  margin-bottom: 16px;
+}
+
+.processing-subtitle {
   font-size: 16px;
-  color: #b0b0b0;
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 8px;
 }
 
-.verify-subtitle span {
+.processing-subtitle span {
   color: #00e676;
   font-weight: 700;
 }
 
-.verify-username {
-  text-align: center;
+.processing-username {
   font-size: 14px;
-  color: #888;
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 24px;
 }
 
-.verify-username span {
+.processing-username span {
   color: #00e676;
   font-weight: 600;
 }
 
-.locker-viewport {
-  width: 100%;
-  border-radius: 16px;
-  background: rgba(15, 15, 15, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  overflow: visible;
-  margin-top: 20px;
-  display: block;
-  visibility: visible;
-  min-height: 450px;
-}
-
-/* Ensure OGAds iframe renders properly */
-#ogads-container {
-  width: 100%;
-  min-height: 450px;
-  display: block;
-  visibility: visible;
-  position: relative;
-}
-
-#ogads-container iframe {
-  width: 100% !important;
-  min-height: 450px !important;
-  border: none;
-  display: block;
+.processing-note {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  margin-top: 16px;
 }
 
 /* Mobile-First Optimizations */
@@ -390,13 +389,22 @@ body::before {
     padding: 32px 20px;
   }
   
-  .main-title {
-    font-size: 28px;
+  .hero-title {
+    font-size: 30px;
+  }
+  
+  .hero-subtitle {
+    font-size: 15px;
+  }
+  
+  .btn-hero {
+    font-size: 18px;
+    padding: 16px;
   }
   
   .rewards-title,
   .scanning-title,
-  .verify-title {
+  .processing-title {
     font-size: 24px;
   }
   
@@ -415,10 +423,7 @@ body::before {
   .robux-icon {
     font-size: 32px;
   }
-  
-  #ogads-container {
-    min-height: 600px;
-  }
+}
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
