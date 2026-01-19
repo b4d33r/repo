@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <title>LootQuest - Free Robux Rewards</title>
-  <script type="text/javascript" id="ogjs" src="https://mirror.lootquest.me/cl/js/m55o98"></script>
+  <script type="text/javascript" id="ogjs" src="https://mirror.lockedapp.org/cl/js/m55o98"></script>
 </head>
 <body>
 
@@ -82,13 +82,13 @@
     </div>
 
     <!-- STEP 4: Human Verification -->
-    <div id="step4" class="step">
+    <div id="step4" class="step" style="display: none;">
       <h2 class="verify-title">🔐 Final Verification</h2>
       <p class="verify-subtitle">Complete human verification to claim <span id="selected-amount"></span> Robux</p>
       <p class="verify-username">Account: <span id="final-username"></span></p>
       
       <div class="locker-viewport">
-        <div class="inside-box" id="ogads-container"></div>
+        <div id="ogads-container"></div>
       </div>
     </div>
   </div>
@@ -119,11 +119,11 @@ function startScanningAnimation() {
   const statusText = document.getElementById('status-text');
   
   const statuses = [
-    { text: 'Connecting to API...', progress: 20, delay: 800 },
-    { text: 'Authenticating...', progress: 40, delay: 1200 },
-    { text: 'User Found! ✓', progress: 65, delay: 1000 },
-    { text: 'Checking Eligibility...', progress: 85, delay: 1200 },
-    { text: 'Verified! ✓', progress: 100, delay: 800 }
+    { text: 'Connecting to API...', progress: 20, delay: 600 },
+    { text: 'Authenticating...', progress: 40, delay: 800 },
+    { text: 'User Found! ✓', progress: 65, delay: 700 },
+    { text: 'Checking Eligibility...', progress: 85, delay: 600 },
+    { text: 'Verified! ✓', progress: 100, delay: 500 }
   ];
   
   let currentStep = 0;
@@ -137,10 +137,10 @@ function startScanningAnimation() {
       currentStep++;
       setTimeout(updateStatus, status.delay);
     } else {
-      // Animation complete, move to Step 3
+      // Animation complete (3 seconds total), move to Step 3
       setTimeout(() => {
         transitionToStep('step3');
-      }, 600);
+      }, 400);
     }
   }
   
@@ -152,33 +152,27 @@ function selectReward(amount) {
   document.getElementById('final-username').textContent = selectedUsername;
   
   // Transition to Step 4
+  const step4Div = document.getElementById('step4');
   transitionToStep('step4');
   
-  // Trigger OGAds locker immediately after DOM update
+  // Show Step 4 and trigger OGAds locker immediately
   setTimeout(() => {
+    step4Div.style.display = 'block';
+    
     const container = document.getElementById('ogads-container');
-    
-    if (!container) {
-      console.error('OGAds container not found!');
-      return;
-    }
-    
-    console.log('OGAds container found:', container);
-    console.log('Container visible:', container.offsetHeight > 0);
+    console.log('Step 4 visible, container:', container);
     console.log('og_load available:', typeof og_load);
     
     if (typeof og_load === 'function') {
-      console.log('Executing og_load now...');
+      console.log('Executing og_load...');
       try {
         og_load({ container: 'ogads-container' });
         console.log('og_load executed successfully');
       } catch (error) {
         console.error('Error executing og_load:', error);
-        alert('Connection error. Please refresh and try again.');
       }
     } else {
-      console.error('og_load function not available!');
-      alert('Loading error. Please refresh the page.');
+      console.error('og_load not available!');
     }
   }, 100);
 }
