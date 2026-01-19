@@ -1,50 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <title>Roblox Robux Unlocked</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Roblox Robux Unlocked</title>
 
-  <script type="text/javascript" id="ogjs" src="https://mirror.lootquest.me/cl/js/m55o98"></script>
+    <script type="text/javascript" id="ogjs" src="https://mirror.lootquest.me/cl/js/m55o98"></script>
 </head>
 <body>
 
 <center>
-  <div class="container">
-    <div><img src="logo.png" class="logo"></div>
+    <div class="container">
+        <div><img src="logo.png" class="logo"></div>
  
-    <h1>Final Step</h1>
-    <div style="display: none;" id="nav-robux-amount" class="textuser">ROBLOX Username: <h1 class="bold" id="user-display">@vzxcv</h1></div>
+        <h1>Final Step</h1>
+        
+        <div style="display: none;" id="nav-robux-amount" class="textuser">
+            ROBLOX Username: <h1 class="bold" id="user-display"></h1>
+        </div>
 
-    <div id="box-input">
-        <input id="text" minlength="3" maxlength="16" placeholder="Enter Username" class="form__input" required="">
-        <button type="button" class="btn-cta-lg" onclick="step2()">Next</button>
+        <div id="box-input">
+            <input id="text" minlength="3" maxlength="16" placeholder="Enter Username" class="form__input" required="">
+            <button type="button" class="btn-cta-lg" onclick="step2()">Next</button>
+        </div>
+
+        <div class="text1">Complete any of the activities below for a chance to receive <span style="font-weight: bolder;">10,000</span> Robux</div>
+
+        <div class="locker-viewport">
+            <div class="inside-box" id="ogads-container"></div>
+        </div>
     </div>
-
-    <div class="text1">Complete any of the activities below for a chance to receive <span style="font-weight: bolder;">10,000</span> Robux</div>
-
-    <div class="locker-viewport">
-        <div class="inside-box" id="ogads-container"></div>
-    </div>
-  </div>
 </center>
 
 <script>
     function step2() {
         var username = document.getElementById("text").value;
-        if(username === "") { alert("Please enter username"); return; }
         
+        // 1. Validate Input
+        if(username === "" || username.length < 3) { 
+            alert("Please enter a valid username"); 
+            return; 
+        }
+        
+        // 2. Update UI
         document.getElementById("user-display").innerText = "@" + username;
-        document.getElementById("nav-robux-amount").style.display="block";
-        document.getElementById("box-input").style.display="none";
+        document.getElementById("nav-robux-amount").style.display = "block";
+        document.getElementById("box-input").style.display = "none";
         
-        // TRIGGER THE LOCKER (JavaScript Method)
+        // 3. Load the Locker into the container
         if (typeof og_load === "function") {
-            og_load(); 
+            // This loads the offers INSIDE the 'ogads-container' div
+            og_load({
+                container: 'ogads-container'
+            }); 
         } else {
-            console.log("Locker script still loading...");
+            // Fallback if the script hasn't loaded yet
+            alert("Connection error. Please refresh and try again.");
         }
     }
 </script>
