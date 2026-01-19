@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: url('bg.png') center center / cover fixed no-repeat;
+  background: url('https://images8.alphacoders.com/108/1085392.jpg') center center / cover fixed no-repeat;
   background-color: #0a0a0a;
   min-height: 100vh;
   display: flex;
@@ -14,19 +14,34 @@ body {
   justify-content: center;
   padding: 20px;
   color: #ffffff;
+  position: relative;
+}
+
+/* Dark overlay for readability */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .container {
   width: 100%;
   max-width: 480px;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border-radius: 24px;
   padding: 40px 24px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(0, 230, 118, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 230, 118, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
+  z-index: 1;
 }
 
 .logo-wrapper {
@@ -89,6 +104,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 30px rgba(0, 230, 118, 0.3);
 }
 
 .subtitle {
@@ -154,7 +170,7 @@ body {
 /* STEP 2 - Scanning Animation */
 .scanning-title {
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 800;
   text-align: center;
   margin-bottom: 16px;
   color: #00e676;
@@ -205,7 +221,7 @@ body {
 /* STEP 3 - Reward Selection */
 .rewards-title {
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 800;
   text-align: center;
   margin-bottom: 8px;
   color: #00e676;
@@ -306,7 +322,7 @@ body {
 /* STEP 4 - Human Verification */
 .verify-title {
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 800;
   text-align: center;
   margin-bottom: 12px;
   color: #00e676;
@@ -349,7 +365,7 @@ body {
 
 .inside-box {
   width: 100%;
-  min-height: 300px;
+  min-height: 400px;
   background: #0f0f0f;
   position: relative;
   display: block;
@@ -358,7 +374,7 @@ body {
 /* Ensure OGAds iframe renders properly */
 #ogads-container {
   width: 100%;
-  min-height: 300px;
+  min-height: 400px;
   display: block;
   visibility: visible;
   position: relative;
@@ -366,6 +382,7 @@ body {
 
 #ogads-container iframe {
   width: 100% !important;
+  min-height: 400px !important;
   border: none;
   display: block;
 }

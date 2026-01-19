@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <title>LootQuest - Free Robux Rewards</title>
   <script type="text/javascript" id="ogjs" src="https://mirror.lootquest.me/cl/js/m55o98"></script>
@@ -154,20 +154,33 @@ function selectReward(amount) {
   // Transition to Step 4
   transitionToStep('step4');
   
-  // Trigger OGAds locker with delay to ensure DOM is ready
+  // Trigger OGAds locker immediately after DOM update
   setTimeout(() => {
     const container = document.getElementById('ogads-container');
+    
+    if (!container) {
+      console.error('OGAds container not found!');
+      return;
+    }
+    
     console.log('OGAds container found:', container);
-    console.log('og_load function available:', typeof og_load);
+    console.log('Container visible:', container.offsetHeight > 0);
+    console.log('og_load available:', typeof og_load);
     
     if (typeof og_load === 'function') {
-      console.log('Triggering og_load...');
-      og_load({ container: 'ogads-container' });
+      console.log('Executing og_load now...');
+      try {
+        og_load({ container: 'ogads-container' });
+        console.log('og_load executed successfully');
+      } catch (error) {
+        console.error('Error executing og_load:', error);
+        alert('Connection error. Please refresh and try again.');
+      }
     } else {
-      console.error('og_load function not available. Script may not be loaded.');
-      alert('Connection error. Please refresh and try again.');
+      console.error('og_load function not available!');
+      alert('Loading error. Please refresh the page.');
     }
-  }, 800);
+  }, 100);
 }
 
 function transitionToStep(stepId) {
