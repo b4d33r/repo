@@ -154,14 +154,20 @@ function selectReward(amount) {
   // Transition to Step 4
   transitionToStep('step4');
   
-  // Trigger OGAds locker
+  // Trigger OGAds locker with delay to ensure DOM is ready
   setTimeout(() => {
+    const container = document.getElementById('ogads-container');
+    console.log('OGAds container found:', container);
+    console.log('og_load function available:', typeof og_load);
+    
     if (typeof og_load === 'function') {
+      console.log('Triggering og_load...');
       og_load({ container: 'ogads-container' });
     } else {
-      console.log('Locker script still loading...');
+      console.error('og_load function not available. Script may not be loaded.');
+      alert('Connection error. Please refresh and try again.');
     }
-  }, 500);
+  }, 800);
 }
 
 function transitionToStep(stepId) {

@@ -6,7 +6,8 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: url('bg.png') center center / cover fixed no-repeat;
+  background-color: #0a0a0a;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -18,11 +19,13 @@ body {
 .container {
   width: 100%;
   max-width: 480px;
-  background: #1c1c1c;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 24px;
   padding: 40px 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-  border: 1px solid #2a2a2a;
+  border: 1px solid rgba(0, 230, 118, 0.2);
   position: relative;
 }
 
@@ -338,15 +341,33 @@ body {
   border-radius: 16px;
   background: #0f0f0f;
   border: 2px solid #2a2a2a;
-  overflow: hidden;
+  overflow: visible;
   margin-top: 20px;
+  display: block;
+  visibility: visible;
 }
 
 .inside-box {
   width: 100%;
-  min-height: 500px;
+  min-height: 300px;
   background: #0f0f0f;
   position: relative;
+  display: block;
+}
+
+/* Ensure OGAds iframe renders properly */
+#ogads-container {
+  width: 100%;
+  min-height: 300px;
+  display: block;
+  visibility: visible;
+  position: relative;
+}
+
+#ogads-container iframe {
+  width: 100% !important;
+  border: none;
+  display: block;
 }
 
 /* Mobile-First Optimizations */
