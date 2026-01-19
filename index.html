@@ -1,65 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Roblox Robux Unlocked</title>
-
-    <script type="text/javascript" id="ogjs" src="https://mirror.lootquest.me/cl/js/m55o98"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>LootQuest - Free Robux Rewards</title>
+  <script type="text/javascript" id="ogjs" src="https://mirror.lootquest.me/cl/js/m55o98"></script>
 </head>
 <body>
 
-<center>
-    <div class="container">
-        <div><img src="logo.png" class="logo"></div>
- 
-        <h1>Final Step</h1>
-        
-        <div style="display: none;" id="nav-robux-amount" class="textuser">
-            ROBLOX Username: <h1 class="bold" id="user-display"></h1>
-        </div>
-
-        <div id="box-input">
-            <input id="text" minlength="3" maxlength="16" placeholder="Enter Username" class="form__input" required="">
-            <button type="button" class="btn-cta-lg" onclick="step2()">Next</button>
-        </div>
-
-        <div class="text1">Complete any of the activities below for a chance to receive <span style="font-weight: bolder;">10,000</span> Robux</div>
-
-        <div class="locker-viewport">
-            <div class="inside-box" id="ogads-container"></div>
-        </div>
+  <div class="container">
+    <div class="logo-wrapper">
+      <img src="logo.png" class="logo" alt="LootQuest Logo">
     </div>
-</center>
+    
+    <!-- STEP 1: Account Connection -->
+    <div id="step1" class="step active">
+      <h1 class="main-title">🎮 LootQuest Rewards</h1>
+      <p class="subtitle">Connect your Roblox account to claim free Robux</p>
+      
+      <div class="input-wrapper">
+        <input 
+          type="text" 
+          id="username-input" 
+          class="username-input" 
+          placeholder="Enter Roblox Username" 
+          minlength="3" 
+          maxlength="20"
+        >
+        <button class="btn-primary" onclick="searchAccount()">
+          <span class="btn-text">Search Account</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Search Animation -->
+    <div id="step2" class="step">
+      <h2 class="scanning-title">🔍 Verifying Account</h2>
+      <p class="username-display">Username: <span id="username-display"></span></p>
+      
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p class="status-text" id="status-text">Connecting to API...</p>
+      </div>
+    </div>
+
+    <!-- STEP 3: Reward Selection -->
+    <div id="step3" class="step">
+      <h2 class="rewards-title">💎 Select Your Reward</h2>
+      <p class="rewards-subtitle">Choose your Robux amount</p>
+      
+      <div class="rewards-grid">
+        <div class="reward-card" onclick="selectReward(1700)">
+          <div class="robux-icon">💰</div>
+          <div class="robux-amount">1,700</div>
+          <div class="robux-label">Robux</div>
+        </div>
+        
+        <div class="reward-card" onclick="selectReward(4500)">
+          <div class="robux-icon">💎</div>
+          <div class="robux-amount">4,500</div>
+          <div class="robux-label">Robux</div>
+        </div>
+        
+        <div class="reward-card popular" onclick="selectReward(10000)">
+          <div class="popular-badge">⭐ Most Popular</div>
+          <div class="robux-icon">🏆</div>
+          <div class="robux-amount">10,000</div>
+          <div class="robux-label">Robux</div>
+        </div>
+        
+        <div class="reward-card premium" onclick="selectReward(22500)">
+          <div class="robux-icon">👑</div>
+          <div class="robux-amount">22,500</div>
+          <div class="robux-label">Robux</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Human Verification -->
+    <div id="step4" class="step">
+      <h2 class="verify-title">🔐 Final Verification</h2>
+      <p class="verify-subtitle">Complete human verification to claim <span id="selected-amount"></span> Robux</p>
+      <p class="verify-username">Account: <span id="final-username"></span></p>
+      
+      <div class="locker-viewport">
+        <div class="inside-box" id="ogads-container"></div>
+      </div>
+    </div>
+  </div>
 
 <script>
-    function step2() {
-        var username = document.getElementById("text").value;
-        
-        // 1. Validate Input
-        if(username === "" || username.length < 3) { 
-            alert("Please enter a valid username"); 
-            return; 
-        }
-        
-        // 2. Update UI
-        document.getElementById("user-display").innerText = "@" + username;
-        document.getElementById("nav-robux-amount").style.display = "block";
-        document.getElementById("box-input").style.display = "none";
-        
-        // 3. Load the Locker into the container
-        if (typeof og_load === "function") {
-            // This loads the offers INSIDE the 'ogads-container' div
-            og_load({
-                container: 'ogads-container'
-            }); 
-        } else {
-            // Fallback if the script hasn't loaded yet
-            alert("Connection error. Please refresh and try again.");
-        }
+let selectedUsername = '';
+
+function searchAccount() {
+  const username = document.getElementById('username-input').value.trim();
+  
+  if (username === '' || username.length < 3) {
+    alert('Please enter a valid Roblox username (3+ characters)');
+    return;
+  }
+  
+  selectedUsername = username;
+  
+  // Transition to Step 2
+  transitionToStep('step2');
+  document.getElementById('username-display').textContent = username;
+  
+  // Start scanning animation
+  startScanningAnimation();
+}
+
+function startScanningAnimation() {
+  const progressFill = document.getElementById('progress-fill');
+  const statusText = document.getElementById('status-text');
+  
+  const statuses = [
+    { text: 'Connecting to API...', progress: 20, delay: 800 },
+    { text: 'Authenticating...', progress: 40, delay: 1200 },
+    { text: 'User Found! ✓', progress: 65, delay: 1000 },
+    { text: 'Checking Eligibility...', progress: 85, delay: 1200 },
+    { text: 'Verified! ✓', progress: 100, delay: 800 }
+  ];
+  
+  let currentStep = 0;
+  
+  function updateStatus() {
+    if (currentStep < statuses.length) {
+      const status = statuses[currentStep];
+      statusText.textContent = status.text;
+      progressFill.style.width = status.progress + '%';
+      
+      currentStep++;
+      setTimeout(updateStatus, status.delay);
+    } else {
+      // Animation complete, move to Step 3
+      setTimeout(() => {
+        transitionToStep('step3');
+      }, 600);
     }
+  }
+  
+  updateStatus();
+}
+
+function selectReward(amount) {
+  document.getElementById('selected-amount').textContent = amount.toLocaleString();
+  document.getElementById('final-username').textContent = selectedUsername;
+  
+  // Transition to Step 4
+  transitionToStep('step4');
+  
+  // Trigger OGAds locker
+  setTimeout(() => {
+    if (typeof og_load === 'function') {
+      og_load({ container: 'ogads-container' });
+    } else {
+      console.log('Locker script still loading...');
+    }
+  }, 500);
+}
+
+function transitionToStep(stepId) {
+  // Fade out current step
+  const activeStep = document.querySelector('.step.active');
+  if (activeStep) {
+    activeStep.classList.remove('active');
+    activeStep.classList.add('fade-out');
+  }
+  
+  // Fade in new step
+  setTimeout(() => {
+    if (activeStep) {
+      activeStep.classList.remove('fade-out');
+    }
+    
+    const newStep = document.getElementById(stepId);
+    newStep.classList.add('active');
+  }, 300);
+}
 </script>
 
 </body>

@@ -1,172 +1,407 @@
-/* Base font */
-body {
-  font-family: 'Poppins', sans-serif;
-  background-image: 
-    url('https://images.rbxcdn.com/78413c0d5e05d6c36720ecc0c3013cbc-vignette.png'),
-    url('https://images.rbxcdn.com/a19e4c27a0694a1d0fd5ceb17c978a7a-marketing_bg_05222025.jpg');
-  background-position: center, 50%;
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover;
-  background-color: rgba(0, 0, 0, 0.5);
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Overlay */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-  pointer-events: none;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #ffffff;
 }
 
-/* Container */
 .container {
-  max-width: 475px;
-  margin: 135px auto 0 auto;
-  background: #fff;
-  border-radius: 50px;
-  padding: 30px 30px 50px 30px;
-  color: #333;
-  box-shadow: 0 10px 15px rgba(0,0,0,0.4);
+  width: 100%;
+  max-width: 480px;
+  background: #1c1c1c;
+  border-radius: 24px;
+  padding: 40px 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid #2a2a2a;
   position: relative;
 }
 
-/* Logo */
-.logo {
-  background-color: #fff;
-  max-width: 120px;
-  margin: -90px auto 0 auto;
-  padding: 15px;
-  border-radius: 40px;
-}
-
-/* Headings */
-h1 {
-  color: #333;
-  font-weight: 700;
-  font-size: 30px;
-  margin: 0;
-}
-
-/* Input */
-.form__input {
-  width: 45%;
-  max-width: 80%;
-  height: 38px;
-  font-size: 16px;
-  padding: 5px;
-  margin-top: 2%;
-  border: 1px solid #b8b8b8;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  color: #1f1f1f;
-  font-weight: 300;
-}
-
-/* Username display */
-.textuser {
-  font-size: 1em;
-  font-weight: 400;
-}
-
-/* Buttons */
-.btn-cta-lg {
-  color: #f2f4f5;
-  background-color: #393b3d;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  width: 13%;
-  font-weight: bolder;
-  cursor: pointer;
-}
-
-/* Offer wrapper */
-div.offer-wrapper {
-  margin-top: 0;
-}
-
-.text1 {
-  font-size: 1.2em;
-  font-weight: 400;
-  color: #3c3c3c;
-  width: 90%;
-  margin: 3% auto;
+.logo-wrapper {
   text-align: center;
+  margin-bottom: 24px;
 }
 
-/* Locker container */
-.locker-viewport {
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #00e676;
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+}
+
+/* Step transitions */
+.step {
+  display: none;
+  opacity: 0;
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+.step.active {
+  display: block;
+}
+
+.step.fade-out {
+  animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* STEP 1 - Account Connection */
+.main-title {
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #00e676 0%, #00ffa3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #b0b0b0;
+  margin-bottom: 32px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.username-input {
   width: 100%;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f0f;
+  border: 2px solid #2a2a2a;
   border-radius: 12px;
-  background-color: #ffffff;
-  margin-top: 10px;
-  overflow: visible;
-}
-
-/* Inside-box container */
-.inside-box {
-  width: 100%;
-  height: 700px; /* main height for locker */
-  border-radius: 15px;
-  overflow: visible;
-  background-color: #ffffff;
-  position: relative;
-}
-
-/* The iframe itself */
-.my-frame {
-  width: 100%;
-  height: 700px; /* same as container */
-  border: none;
-  background-color: #ffffff;
-  
-  /* SCALE so OGAds fits properly */
-  transform: scale(0.9);
-  transform-origin: top center;
-}
-
-/* iframe general reset */
-iframe {
-  border: none;
+  color: #ffffff;
+  transition: all 0.3s ease;
   outline: none;
 }
 
-/* Gradient / CTA styling */
-.gradient {
-  background: #00b06f;
-  margin: 0 auto;
-  padding: 10px 25px;
-  color: #fff;
-  border-radius: 10px;
-  font-weight: 500;
-  box-shadow: 0 0 6px rgba(0,0,0,0.3);
-  text-decoration: none !important;
-  border: 2px solid #eee;
-  text-align: center;
-  font-size: 1.1em !important;
-  cursor: pointer;
-  transform: scale(0.9);
-  transition: all 0.15s ease-in-out;
-}
-.gradient:hover {
-  transform: scale(1);
-  transition: all 0.15s ease-in-out;
+.username-input:focus {
+  border-color: #00e676;
+  box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1);
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .container, .locker-viewport, .inside-box {
-    height: auto;
+.username-input::placeholder {
+  color: #666;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #00e676 0%, #00c853 100%);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 230, 118, 0.5);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* STEP 2 - Scanning Animation */
+.scanning-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+  color: #00e676;
+}
+
+.username-display {
+  text-align: center;
+  font-size: 16px;
+  color: #b0b0b0;
+  margin-bottom: 32px;
+}
+
+.username-display span {
+  color: #00e676;
+  font-weight: 600;
+}
+
+.progress-container {
+  margin-top: 40px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #0f0f0f;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #2a2a2a;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00e676 0%, #00ffa3 100%);
+  transition: width 0.4s ease;
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.6);
+}
+
+.status-text {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  min-height: 24px;
+}
+
+/* STEP 3 - Reward Selection */
+.rewards-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+  color: #00e676;
+}
+
+.rewards-subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: #b0b0b0;
+  margin-bottom: 28px;
+}
+
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.reward-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  border: 2px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.reward-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reward-card:hover::before {
+  opacity: 1;
+}
+
+.reward-card:hover {
+  border-color: #00e676;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 230, 118, 0.3);
+}
+
+.reward-card.popular {
+  border-color: #00e676;
+  background: linear-gradient(135deg, #1a2f1a 0%, #0f1f0f 100%);
+}
+
+.reward-card.premium {
+  border-color: #ffd700;
+}
+
+.reward-card.premium:hover {
+  border-color: #ffd700;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.3);
+}
+
+.popular-badge {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00e676;
+  color: #0a0a0a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.robux-icon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.robux-amount {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.robux-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #00e676;
+}
+
+/* STEP 4 - Human Verification */
+.verify-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+  color: #00e676;
+}
+
+.verify-subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: #b0b0b0;
+  margin-bottom: 8px;
+}
+
+.verify-subtitle span {
+  color: #00e676;
+  font-weight: 700;
+}
+
+.verify-username {
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.verify-username span {
+  color: #00e676;
+  font-weight: 600;
+}
+
+.locker-viewport {
+  width: 100%;
+  border-radius: 16px;
+  background: #0f0f0f;
+  border: 2px solid #2a2a2a;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.inside-box {
+  width: 100%;
+  min-height: 500px;
+  background: #0f0f0f;
+  position: relative;
+}
+
+/* Mobile-First Optimizations */
+@media (max-width: 480px) {
+  .container {
+    padding: 32px 20px;
   }
-  .my-frame {
-    height: 800px;
-    transform: scale(0.85);
+  
+  .main-title {
+    font-size: 28px;
   }
+  
+  .rewards-title,
+  .scanning-title,
+  .verify-title {
+    font-size: 24px;
+  }
+  
+  .rewards-grid {
+    gap: 12px;
+  }
+  
+  .reward-card {
+    padding: 20px 12px;
+  }
+  
+  .robux-amount {
+    font-size: 24px;
+  }
+  
+  .robux-icon {
+    font-size: 32px;
+  }
+  
+  .inside-box {
+    min-height: 600px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+/* Glow effect for active elements */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 230, 118, 0.5);
+  }
+}
+
+.reward-card.popular {
+  animation: glow 2s infinite;
 }
