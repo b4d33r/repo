@@ -137,7 +137,7 @@ body::before {
 
 .btn-hero:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 230, 118, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 230, 118, 0.6), 0 0 20px rgba(0, 230, 118, 0.4);
 }
 
 .btn-hero:active {
@@ -278,7 +278,7 @@ body::before {
 .reward-card:hover {
   border-color: #00e676;
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 230, 118, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 230, 118, 0.3), 0 0 15px rgba(0, 230, 118, 0.2);
 }
 
 .reward-card.popular {
@@ -356,8 +356,9 @@ body::before {
 
 .processing-subtitle {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
+  line-height: 1.6;
 }
 
 .processing-subtitle span {
@@ -444,4 +445,78 @@ body::before {
 
 .reward-card.popular {
   animation: glow 2s infinite;
+}
+
+/* Live Activity Feed (Social Proof) */
+.activity-feed {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  width: 320px;
+  max-width: calc(100vw - 40px);
+}
+
+.activity-notification {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  border-left: 4px solid #00e676;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transform: translateX(-120%);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.activity-notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.activity-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: #00e676;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #000;
+  font-weight: 900;
+}
+
+.activity-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+}
+
+.activity-text strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .activity-feed {
+    width: 280px;
+    left: 10px;
+    bottom: 10px;
+  }
+  
+  .activity-notification {
+    padding: 12px 14px;
+  }
+  
+  .activity-text {
+    font-size: 12px;
+  }
 }
