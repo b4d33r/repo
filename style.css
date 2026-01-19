@@ -1,0 +1,172 @@
+/* Base font */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-image: 
+    url('https://images.rbxcdn.com/78413c0d5e05d6c36720ecc0c3013cbc-vignette.png'),
+    url('https://images.rbxcdn.com/a19e4c27a0694a1d0fd5ceb17c978a7a-marketing_bg_05222025.jpg');
+  background-position: center, 50%;
+  background-repeat: no-repeat, no-repeat;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Container */
+.container {
+  max-width: 475px;
+  margin: 135px auto 0 auto;
+  background: #fff;
+  border-radius: 50px;
+  padding: 30px 30px 50px 30px;
+  color: #333;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+/* Logo */
+.logo {
+  background-color: #fff;
+  max-width: 120px;
+  margin: -90px auto 0 auto;
+  padding: 15px;
+  border-radius: 40px;
+}
+
+/* Headings */
+h1 {
+  color: #333;
+  font-weight: 700;
+  font-size: 30px;
+  margin: 0;
+}
+
+/* Input */
+.form__input {
+  width: 45%;
+  max-width: 80%;
+  height: 38px;
+  font-size: 16px;
+  padding: 5px;
+  margin-top: 2%;
+  border: 1px solid #b8b8b8;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  color: #1f1f1f;
+  font-weight: 300;
+}
+
+/* Username display */
+.textuser {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+/* Buttons */
+.btn-cta-lg {
+  color: #f2f4f5;
+  background-color: #393b3d;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 13%;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+/* Offer wrapper */
+div.offer-wrapper {
+  margin-top: 0;
+}
+
+.text1 {
+  font-size: 1.2em;
+  font-weight: 400;
+  color: #3c3c3c;
+  width: 90%;
+  margin: 3% auto;
+  text-align: center;
+}
+
+/* Locker container */
+.locker-viewport {
+  width: 100%;
+  border-radius: 12px;
+  background-color: #ffffff;
+  margin-top: 10px;
+  overflow: visible;
+}
+
+/* Inside-box container */
+.inside-box {
+  width: 100%;
+  height: 700px; /* main height for locker */
+  border-radius: 15px;
+  overflow: visible;
+  background-color: #ffffff;
+  position: relative;
+}
+
+/* The iframe itself */
+.my-frame {
+  width: 100%;
+  height: 700px; /* same as container */
+  border: none;
+  background-color: #ffffff;
+  
+  /* SCALE so OGAds fits properly */
+  transform: scale(0.9);
+  transform-origin: top center;
+}
+
+/* iframe general reset */
+iframe {
+  border: none;
+  outline: none;
+}
+
+/* Gradient / CTA styling */
+.gradient {
+  background: #00b06f;
+  margin: 0 auto;
+  padding: 10px 25px;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 500;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  text-decoration: none !important;
+  border: 2px solid #eee;
+  text-align: center;
+  font-size: 1.1em !important;
+  cursor: pointer;
+  transform: scale(0.9);
+  transition: all 0.15s ease-in-out;
+}
+.gradient:hover {
+  transform: scale(1);
+  transition: all 0.15s ease-in-out;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container, .locker-viewport, .inside-box {
+    height: auto;
+  }
+  .my-frame {
+    height: 800px;
+    transform: scale(0.85);
+  }
+}
