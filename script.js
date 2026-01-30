@@ -125,17 +125,17 @@ function startTerminalAnimation() {
   terminalOverlay.classList.add('active');
   
   const logs = [
-    { text: '> [INIT] Accessing Brainrot Script API...', delay: 500, progress: 0 },
-    { text: '> [OK] Connection established', delay: 600, progress: 15 },
-    { text: '> [INFO] Fetching latest script version...', delay: 500, progress: 25 },
-    { text: `> [INFO] Target Device: ${selectedDevice}`, delay: 700, progress: 35 },
-    { text: '> [INFO] Bypassing Roblox Anti-Cheat...', delay: 800, progress: 50 },
-    { text: '> [OK] Anti-Cheat bypassed successfully', delay: 600, progress: 65 },
-    { text: '> [INFO] Obfuscating script for keyless access...', delay: 700, progress: 75 },
-    { text: '> [OK] Obfuscation complete', delay: 500, progress: 85 },
-    { text: '> [INFO] Generating injection payload...', delay: 600, progress: 92 },
-    { text: '> [DONE] Package ready for local injection', delay: 500, progress: 98 },
-    { text: '> [SUCCESS] Script prepared successfully', delay: 400, progress: 100 }
+    { text: '> [INIT] Accessing Brainrot Script API...', delay: 200, progress: 0 },
+    { text: '> [OK] Connection established', delay: 200, progress: 15 },
+    { text: '> [INFO] Fetching latest script version...', delay: 200, progress: 25 },
+    { text: `> [INFO] Target Device: ${selectedDevice}`, delay: 200, progress: 35 },
+    { text: '> [INFO] Bypassing Roblox Anti-Cheat...', delay: 300, progress: 50 },
+    { text: '> [OK] Anti-Cheat bypassed successfully', delay: 200, progress: 65 },
+    { text: '> [INFO] Obfuscating script for keyless access...', delay: 200, progress: 75 },
+    { text: '> [OK] Obfuscation complete', delay: 200, progress: 85 },
+    { text: '> [INFO] Generating injection payload...', delay: 200, progress: 92 },
+    { text: '> [DONE] Package ready for local injection', delay: 200, progress: 98 },
+    { text: '> [SUCCESS] Script prepared successfully', delay: 200, progress: 100 }
   ];
   
   let currentLog = 0;
@@ -162,7 +162,7 @@ function startTerminalAnimation() {
       // Animation complete - move to verification
       setTimeout(() => {
         showVerification();
-      }, 800);
+      }, 300);
     }
   }
   
@@ -192,7 +192,7 @@ function showVerification() {
     } else {
       console.error('❌ OGAds not loaded');
     }
-  }, 500);
+  }, 100);
 }
 
 // Live Activity Feed
