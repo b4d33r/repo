@@ -126,24 +126,40 @@ function showQuickLoading() {
   terminalOverlay.classList.add('active');
   
   // Quick loading sequence
-  terminalOutput.textContent = '> [INIT] Preparing download...\n> [OK] Ready!';
+  let outputText = '> [INIT] Preparing download...\n';
+  terminalOutput.textContent = outputText;
   
-  // Fast progress animation
+  // Smoother progress animation (1.5 seconds total)
   let progress = 0;
+  let step = 0;
   const progressInterval = setInterval(() => {
-    progress += 20;
+    progress += 5;
+    step++;
+    
+    // Add messages at intervals
+    if (step === 5) {
+      outputText += '> [OK] Loading script...\n';
+      terminalOutput.textContent = outputText;
+    }
+    if (step === 12) {
+      outputText += '> [OK] Initializing...\n';
+      terminalOutput.textContent = outputText;
+    }
+    if (step === 18) {
+      outputText += '> [DONE] Ready!\n';
+      terminalOutput.textContent = outputText;
+    }
+    
     if (progress >= 100) {
       progress = 100;
       clearInterval(progressInterval);
       
-      // Go to verification immediately at 100%
-      setTimeout(() => {
-        showVerification();
-      }, 100);
+      // Go to verification immediately - no extra delay
+      showVerification();
     }
     progressFill.style.width = progress + '%';
     progressText.textContent = progress + '%';
-  }, 80); // 80ms * 5 = 400ms total
+  }, 75); // 75ms * 20 = 1500ms total
 }
 
 // Load OGads script dynamically
@@ -231,23 +247,33 @@ function showVerification() {
     return;
   }
   
-  // Hide terminal
-  document.getElementById('terminal-overlay').classList.remove('active');
-  
-  // Hide landing
-  document.getElementById('landing').classList.add('hidden');
-  
-  // Show verification
+  // Show verification FIRST (before hiding terminal)
   const verificationScreen = document.getElementById('verification');
   verificationScreen.classList.add('active');
   
   // Update device info
   document.getElementById('verify-device').textContent = selectedDevice;
   
+  // Hide landing
+  document.getElementById('landing').classList.add('hidden');
+  
+  // Then hide terminal after a brief overlap (smooth transition)
+  setTimeout(() => {
+    document.getElementById('terminal-overlay').classList.remove('active');
+  }, 300);
+  
   // Trigger OGAds locker immediately
   if (typeof og_load === 'function') {
     console.log('✅ Triggering OGAds locker...');
     og_load();
+    
+    // Hide loading spinner once locker container appears
+    setTimeout(() => {
+      const lockerLoading = document.getElementById('locker-loading');
+      if (lockerLoading) {
+        lockerLoading.style.display = 'none';
+      }
+    }, 1500); // Give locker 1.5s to render
   } else {
     console.warn('⏳ OGAds not ready yet, will retry...');
     // Retry every 100ms until og_load is available (max 20 attempts = 2 seconds)
@@ -258,8 +284,17 @@ function showVerification() {
         console.log('✅ Triggering OGAds locker (retry)...');
         og_load();
         clearInterval(retryInterval);
+        
+        // Hide loading spinner
+        setTimeout(() => {
+          const lockerLoading = document.getElementById('locker-loading');
+          if (lockerLoading) {
+            lockerLoading.style.display = 'none';
+          }
+        }, 1500);
       } else if (attempts >= 20) {
         console.error('❌ OGAds failed to load after 2 seconds');
+        document.getElementById('locker-loading').innerHTML = '<p class="locker-note" style="color: #ff4444;">⚠️ Loading failed. Please refresh the page.</p>';
         clearInterval(retryInterval);
       }
     }, 100);
