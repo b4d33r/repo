@@ -6,20 +6,17 @@
 
 /* Trust Bar */
 .trust-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 230, 118, 0.08);
   backdrop-filter: blur(10px);
-  padding: 12px 20px;
+  padding: 15px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(0, 230, 118, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  gap: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 230, 118, 0.2);
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.15);
 }
 
 .trust-item {
@@ -52,7 +49,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px 20px;
+  padding: 20px;
   overflow-x: hidden;
   position: relative;
   /* iOS Fix: Remove color-scheme */
@@ -821,7 +818,7 @@ body::before {
 /* Activity Feed */
 .activity-feed {
   position: fixed;
-  bottom: 20px;
+  top: 20px;
   right: 20px;
   z-index: 999;
   display: flex;
@@ -908,12 +905,9 @@ body::before {
 /* Responsive */
 @media (max-width: 768px) {
   .trust-bar {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-direction: column;
+    gap: 10px;
     padding: 12px 15px;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(10, 10, 15, 0.95));
-    justify-content: space-around;
   }
   
   .trust-item {
@@ -927,24 +921,42 @@ body::before {
   }
   
   body {
-    padding: 100px 15px 15px;
+    padding: 20px 15px 15px;
   }
   
   .container {
-    padding: 30px 18px;
+    padding: 25px 15px;
   }
 
   .site-title {
     font-size: 22px;
+    margin-bottom: 6px;
+  }
+  
+  .logo {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 10px;
   }
   
   .badges {
     gap: 6px;
+    margin-top: 8px;
   }
   
   .badge {
     font-size: 10px;
     padding: 4px 8px;
+  }
+  
+  .tagline {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .trust-bar {
+    margin: 12px 0;
+    padding: 10px 12px;
   }
 
   .script-card {
@@ -989,16 +1001,17 @@ body::before {
   }
   
   .key-features {
-    gap: 8px;
+    gap: 6px;
+    margin: 12px 0 15px;
   }
   
   .key-feature-badge {
     font-size: 11px;
-    padding: 8px 16px;
+    padding: 7px 14px;
   }
   
   .btn-mega {
-    padding: 20px 30px !important;
+    padding: 18px 25px !important;
   }
   
   .btn-icon-large {
@@ -1017,7 +1030,7 @@ body::before {
   .activity-feed {
     left: 10px;
     right: 10px;
-    top: 140px;
+    top: 80px;
     bottom: auto;
     max-width: none;
   }
