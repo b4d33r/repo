@@ -908,17 +908,30 @@ body::before {
 /* Responsive */
 @media (max-width: 768px) {
   .trust-bar {
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 12px 15px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(10, 10, 15, 0.95));
+    justify-content: space-around;
   }
   
   .trust-item {
     font-size: 11px;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  
+  .trust-icon {
+    font-size: 14px;
   }
   
   body {
-    padding: 130px 15px 15px;
+    padding: 100px 15px 15px;
+  }
+  
+  .container {
+    padding: 30px 18px;
   }
 
   .site-title {
