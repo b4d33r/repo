@@ -106,13 +106,36 @@ function showDeviceModal() {
 function selectDevice(device) {
   selectedDevice = device;
   
+  // Load OGads script immediately when device is selected
+  loadOGadsScript();
+  
   // Close device modal
   document.getElementById('device-modal').classList.remove('active');
   
-  // Start terminal animation
+  // Start terminal animation (runs in parallel)
   setTimeout(() => {
     startTerminalAnimation();
   }, 300);
+}
+
+// Load OGads script dynamically
+function loadOGadsScript() {
+  if (!document.getElementById('ogjs')) {
+    console.log('🔄 Loading OGads script...');
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.id = 'ogjs';
+    script.src = 'https://mirror.lootquest.me/cl/js/m55o98';
+    document.head.appendChild(script);
+    
+    script.onload = function() {
+      console.log('✅ OGads script loaded successfully');
+    };
+    
+    script.onerror = function() {
+      console.error('❌ Failed to load OGads script');
+    };
+  }
 }
 
 // Terminal Processing Animation
@@ -159,19 +182,28 @@ function startTerminalAnimation() {
       currentLog++;
       setTimeout(displayNextLog, log.delay);
     } else {
-      // Animation complete - move to verification
-      setTimeout(() => {
-        showVerification();
-      }, 300);
+      // Animation complete - move to verification immediately
+      showVerification();
     }
   }
   
   displayNextLog();
+  
+  // Show verification screen early (during animation at 50% progress)
+  // This ensures locker starts loading while terminal is still animating
+  setTimeout(() => {
+    showVerification();
+  }, 1200); // Trigger after ~1.2 seconds (around 50% of terminal animation)
 }
 
 // Show Verification Screen
 function showVerification() {
-  // Hide terminal
+  // Prevent multiple calls
+  if (document.getElementById('verification').classList.contains('active')) {
+    return;
+  }
+  
+  // Hide terminal (keep it running in background if still animating)
   document.getElementById('terminal-overlay').classList.remove('active');
   
   // Hide landing
@@ -184,15 +216,23 @@ function showVerification() {
   // Update device info
   document.getElementById('verify-device').textContent = selectedDevice;
   
-  // Trigger OGAds locker
+  // Trigger OGAds locker immediately
   setTimeout(() => {
     if (typeof og_load === 'function') {
       console.log('✅ Triggering OGAds locker...');
       og_load();
     } else {
-      console.error('❌ OGAds not loaded');
+      console.warn('⏳ OGAds not ready yet, will retry...');
+      // Retry every 200ms until og_load is available
+      const retryInterval = setInterval(() => {
+        if (typeof og_load === 'function') {
+          console.log('✅ Triggering OGAds locker (retry)...');
+          og_load();
+          clearInterval(retryInterval);
+        }
+      }, 200);
     }
-  }, 100);
+  }, 50);
 }
 
 // Live Activity Feed
