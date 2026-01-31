@@ -112,10 +112,38 @@ function selectDevice(device) {
   // Close device modal
   document.getElementById('device-modal').classList.remove('active');
   
-  // Start terminal animation (runs in parallel)
-  setTimeout(() => {
-    startTerminalAnimation();
-  }, 300);
+  // Show quick loading transition then go straight to verification
+  showQuickLoading();
+}
+
+// Quick loading transition (under 1 second)
+function showQuickLoading() {
+  const terminalOverlay = document.getElementById('terminal-overlay');
+  const terminalOutput = document.getElementById('terminal-output');
+  const progressFill = document.getElementById('progress-fill');
+  const progressText = document.getElementById('progress-text');
+  
+  terminalOverlay.classList.add('active');
+  
+  // Quick loading sequence
+  terminalOutput.textContent = '> [INIT] Preparing download...\n> [OK] Ready!';
+  
+  // Fast progress animation
+  let progress = 0;
+  const progressInterval = setInterval(() => {
+    progress += 20;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(progressInterval);
+      
+      // Go to verification immediately at 100%
+      setTimeout(() => {
+        showVerification();
+      }, 100);
+    }
+    progressFill.style.width = progress + '%';
+    progressText.textContent = progress + '%';
+  }, 80); // 80ms * 5 = 400ms total
 }
 
 // Load OGads script dynamically
@@ -203,7 +231,7 @@ function showVerification() {
     return;
   }
   
-  // Hide terminal (keep it running in background if still animating)
+  // Hide terminal
   document.getElementById('terminal-overlay').classList.remove('active');
   
   // Hide landing
@@ -217,22 +245,25 @@ function showVerification() {
   document.getElementById('verify-device').textContent = selectedDevice;
   
   // Trigger OGAds locker immediately
-  setTimeout(() => {
-    if (typeof og_load === 'function') {
-      console.log('✅ Triggering OGAds locker...');
-      og_load();
-    } else {
-      console.warn('⏳ OGAds not ready yet, will retry...');
-      // Retry every 200ms until og_load is available
-      const retryInterval = setInterval(() => {
-        if (typeof og_load === 'function') {
-          console.log('✅ Triggering OGAds locker (retry)...');
-          og_load();
-          clearInterval(retryInterval);
-        }
-      }, 200);
-    }
-  }, 50);
+  if (typeof og_load === 'function') {
+    console.log('✅ Triggering OGAds locker...');
+    og_load();
+  } else {
+    console.warn('⏳ OGAds not ready yet, will retry...');
+    // Retry every 100ms until og_load is available (max 20 attempts = 2 seconds)
+    let attempts = 0;
+    const retryInterval = setInterval(() => {
+      attempts++;
+      if (typeof og_load === 'function') {
+        console.log('✅ Triggering OGAds locker (retry)...');
+        og_load();
+        clearInterval(retryInterval);
+      } else if (attempts >= 20) {
+        console.error('❌ OGAds failed to load after 2 seconds');
+        clearInterval(retryInterval);
+      }
+    }, 100);
+  }
 }
 
 // Live Activity Feed
