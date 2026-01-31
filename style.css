@@ -1062,6 +1062,49 @@ body::before {
   .particle {
     font-size: 18px;
   }
+  
+  .locker-container {
+    min-height: 150px;
+    padding: 10px;
+  }
+  
+  .locker-loading {
+    padding: 20px 10px;
+  }
+  
+  .spinner {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto 15px;
+  }
+  
+  .locker-note {
+    font-size: 12px;
+  }
+  
+  .verification-screen {
+    padding: 30px 15px;
+  }
+  
+  .verification-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+  }
+  
+  .verification-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  
+  .verification-text {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  
+  .verification-info {
+    padding: 18px;
+    margin-bottom: 20px;
+  }
 }
 
 /* Hidden class */

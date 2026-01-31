@@ -186,33 +186,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Verification Screen -->
     <div id="verification" class="verification-screen">
-      <div class="verification-icon">🛡️</div>
-      <h2 class="verification-title">Final Step: Human Verification</h2>
-      <p class="verification-text">
-        Complete one quick task below to verify you're human and unlock your download. Takes only 30 seconds!
-      </p>
-      
-      <div class="verification-info">
-        <div class="info-row">
-          <span class="info-label">Script:</span>
-          <span class="info-value">Steal a Brainrot</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Device:</span>
-          <span class="info-value" id="verify-device">-</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Status:</span>
-          <span class="info-value" style="color: #00e676;">Ready</span>
-        </div>
-      </div>
-
       <div class="locker-container">
         <div class="locker-loading" id="locker-loading">
           <div class="spinner"></div>
           <p class="locker-note">⏳ Loading verification...</p>
         </div>
       </div>
+      <!-- Hidden element needed for script -->
+      <span id="verify-device" style="display:none;"></span>
     </div>
   </div>
 

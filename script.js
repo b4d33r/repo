@@ -150,15 +150,22 @@ function showQuickLoading() {
       terminalOutput.textContent = outputText;
     }
     
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(progressInterval);
-      
-      // Go to verification immediately - no extra delay
-      showVerification();
-    }
+    // Cap progress at 100
+    if (progress > 100) progress = 100;
+    
+    // Update UI first
     progressFill.style.width = progress + '%';
     progressText.textContent = progress + '%';
+    
+    // Check if complete
+    if (progress >= 100) {
+      clearInterval(progressInterval);
+      
+      // Small delay to ensure UI updates, then show verification
+      setTimeout(() => {
+        showVerification();
+      }, 150);
+    }
   }, 75); // 75ms * 20 = 1500ms total
 }
 
@@ -174,6 +181,15 @@ function loadOGadsScript() {
     
     script.onload = function() {
       console.log('✅ OGads script loaded successfully');
+      
+      // Initialize OGads locker configuration
+      if (typeof window.OGAdsOptions === 'undefined') {
+        window.OGAdsOptions = {
+          1549012: {
+            // Configuration can be added here if needed
+          }
+        };
+      }
     };
     
     script.onerror = function() {
@@ -232,12 +248,6 @@ function startTerminalAnimation() {
   }
   
   displayNextLog();
-  
-  // Show verification screen early (during animation at 50% progress)
-  // This ensures locker starts loading while terminal is still animating
-  setTimeout(() => {
-    showVerification();
-  }, 1200); // Trigger after ~1.2 seconds (around 50% of terminal animation)
 }
 
 // Show Verification Screen
